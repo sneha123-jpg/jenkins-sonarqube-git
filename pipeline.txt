@@ -3,40 +3,41 @@ pipeline {
 
     stages {
 
-        stage ("Pull") {
+        stage("Pull") {
             steps {
                 git 'https://github.com/sneha123-jpg/sonar-jenkin.git'
             }
         }
 
-        stage ("Build") {
+        stage("Build") {
             steps {
                 sh 'mvn clean package'
             }
         }
 
-        stage ("Test") {
+        stage("Test") {
             steps {
+
                 echo "test success"
 
-               withSonarQubeEnv(credentialsId: 'my-sonar-token',installationName: 'my-sonar') {
-     
+                withSonarQubeEnv('my-sonar') {
 
- sh '''
-                mvn clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
-                -Dsonar.projectKey=java-students \
-                -Dsonar.projectName=java-students \...
-                                 
+                    sh '''
+                    mvn clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
+                    -Dsonar.projectKey=java-students \
+                    -Dsonar.projectName=java-students
+                    '''
+                }
             }
         }
 
-        stage ("Quality Gate") {
+        stage("Quality Gate") {
             steps {
                 echo "quality success"
             }
         }
 
-        stage ("Deploy") {
+        stage("Deploy") {
             steps {
                 echo "deploy success"
             }
