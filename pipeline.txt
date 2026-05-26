@@ -19,13 +19,14 @@ pipeline {
             steps {
                 echo "test success"
 
-                sh '''
+               withSonarQubeEnv(credentialsId: 'my-sonar-token';installationName: 'my-sonar') {
+     
+
+ sh '''
                 mvn clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
                 -Dsonar.projectKey=java-students \
-                -Dsonar.projectName=java-students \
-                -Dsonar.host.url=http://52.90.221.142:9000 \
-                -Dsonar.token=sqp_6a9ea76e2a4304fe8bafde189c1c95f6fb5d8fdf
-                '''
+                -Dsonar.projectName=java-students \...
+                                 
             }
         }
 
