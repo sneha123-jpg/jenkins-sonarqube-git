@@ -33,7 +33,7 @@ pipeline {
 
         stage("Quality Gate") {
             steps {
-                echo "quality success"
+               waitForQualityGate abortPipeline: true, credentialsId: 'my-sonar-token'
             }
         }
 
