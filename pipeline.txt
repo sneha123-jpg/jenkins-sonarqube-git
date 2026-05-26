@@ -1,0 +1,44 @@
+pipeline {
+    agent any
+
+    stages {
+
+        stage ("Pull") {
+            steps {
+                git 'https://github.com/sneha123-jpg/sonar-jenkin.git'
+            }
+        }
+
+        stage ("Build") {
+            steps {
+                sh 'mvn clean package'
+            }
+        }
+
+        stage ("Test") {
+            steps {
+                echo "test success"
+
+                sh '''
+                mvn clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
+                -Dsonar.projectKey=java-students \
+                -Dsonar.projectName=java-students \
+                -Dsonar.host.url=http://52.90.221.142:9000 \
+                -Dsonar.token=sqp_6a9ea76e2a4304fe8bafde189c1c95f6fb5d8fdf
+                '''
+            }
+        }
+
+        stage ("Quality Gate") {
+            steps {
+                echo "quality success"
+            }
+        }
+
+        stage ("Deploy") {
+            steps {
+                echo "deploy success"
+            }
+        }
+    }
+}
