@@ -19,7 +19,7 @@ pipeline {
             steps {
                 echo "test success"
 
-               withSonarQubeEnv(credentialsId: 'my-sonar-token';installationName: 'my-sonar') {
+               withSonarQubeEnv(credentialsId: 'my-sonar-token',installationName: 'my-sonar') {
      
 
  sh '''
